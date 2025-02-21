@@ -107,7 +107,7 @@ The dataset is imbalanced, with a higher prevalence of non-ASD cases, addressed 
 ``` bash
 git clone https://github.com/YourUsername/ASD-Detection-ML
 cd ASD-Detection-ML
-``` HERE
+```
 
 ### **2. Set Up a Virtual Environment**
 ``` bash
