@@ -1,6 +1,6 @@
-# Predicting Autism Spectrum Disorder (ASD) Using Machine Learning
+# **Predicting Autism Spectrum Disorder (ASD) Using Machine Learning**
 
-This project focuses on predicting Autism Spectrum Disorder (ASD) using behavioral screening data and demographic features. The analysis includes **exploratory data analysis (EDA), feature importance evaluation, machine learning model comparison, hyperparameter tuning**, and model deployment preparation.
+This project focuses on **predicting Autism Spectrum Disorder (ASD)** based on **behavioral screening responses and demographic features**. The analysis includes **exploratory data analysis (EDA), feature importance evaluation, machine learning model comparison, hyperparameter tuning**, and model deployment preparation.
 
 ---
 
@@ -17,130 +17,152 @@ This project focuses on predicting Autism Spectrum Disorder (ASD) using behavior
 ---
 
 ## **Introduction**
-Autism Spectrum Disorder (ASD) is a developmental condition that affects communication, behavior, and social interaction. Early detection is critical for providing timely interventions and improving outcomes. This project utilizes machine learning algorithms to develop a model capable of detecting ASD based on behavioral screening scores and demographic data.
+Autism Spectrum Disorder (ASD) is a **neurodevelopmental condition** that affects communication, behavior, and social interaction. Early detection is **critical** for timely interventions and improving outcomes. This project leverages **machine learning techniques** to develop a predictive model capable of **identifying individuals at risk for ASD** using **behavioral screening scores and demographic data**.
 
 ### **Objectives**
-- Perform **data preprocessing and feature engineering** to prepare the dataset for analysis.
-- Develop and evaluate multiple **machine learning algorithms** to identify the most effective predictive model.
-- Prepare the best-performing model for **deployment** as a prototype for real-world use.
+- **Perform data preprocessing** and feature engineering to prepare the dataset for analysis.
+- **Evaluate multiple machine learning algorithms** to determine the best-performing model.
+- **Interpret model decisions** using feature importance and SHAP analysis.
+- **Prepare the selected model for deployment** as a prototype for ASD detection.
 
 ---
 
 ## **Dataset Description**
-The dataset used in this project focuses on **adult ASD screening** and includes behavioral assessment scores and relevant demographic information.
+The dataset contains **behavioral screening responses and demographic information** for **adult ASD screening**. 
 
-### **Features:**
-- **Behavioral Screening Scores**: Answers to ten screening questions (`A1_Score` to `A10_Score`).
-- **Demographic Features**:
+### **Key Features:**
+- **Behavioral Screening Responses**: Answers to 10 standardized screening questions (`A1_Score` to `A10_Score`).
+- **Demographic Attributes**:
   - **Age**
   - **Gender**
   - **Ethnicity**
-  - **Jaundice history** (yes/no)
-  - **Family history of ASD** (yes/no)
-  - **Relation** (e.g., self, parent)
+  - **Jaundice history** (Yes/No)
+  - **Family history of ASD** (Yes/No)
+  - **Relation to ASD individual** (e.g., Self, Parent)
 - **Target Variable**:  
-  - **Class/ASD**: Binary classification (YES/NO)
+  - **ASD Classification** (`YES` = ASD, `NO` = No ASD)
 
-The dataset is imbalanced, with a higher prevalence of non-ASD cases, addressed using **SMOTE (Synthetic Minority Oversampling Technique)**.
+The dataset was **imbalanced** with a higher number of **non-ASD cases**, which was addressed using **SMOTE (Synthetic Minority Oversampling Technique)**.
 
 ---
 
 ## **Project Workflow**
 
 ### **1. Exploratory Data Analysis (EDA)**
-- Analyzed distributions of numerical and categorical features.
-- Investigated correlations between features and the target variable (`Class/ASD`).
-- Detected class imbalance and applied oversampling techniques.
+- **Feature distribution analysis** to understand data characteristics.
+- **Correlation analysis** to assess relationships between input variables and ASD classification.
+- **Class imbalance detection** and **oversampling using SMOTE** to ensure fair model learning.
 
 ### **2. Data Preprocessing**
-- Handled missing values and removed duplicate entries.
-- Encoded categorical features using **label encoding** and **one-hot encoding**.
-- Scaled numerical features for consistency.
+- **Missing values handled** and **duplicate entries removed**.
+- **Categorical encoding applied** (label encoding & one-hot encoding).
+- **Feature scaling** to ensure numerical consistency.
 
 ### **3. Model Development & Evaluation**
-- Trained multiple models:
-  - **Baseline Models**: Logistic Regression
-  - **Tree-Based Models**: Random Forest, Gradient Boosting
-  - **Advanced Models**: XGBoost, LightGBM, CatBoost
-- Evaluated models using:
+- **Trained multiple models**, including:
+  - **Logistic Regression**
+  - **Random Forest**
+  - **Gradient Boosting**
+  - **XGBoost**
+  - **LightGBM**
+  - **CatBoost** (Final Model)
+- **Evaluated models based on**:
   - **Accuracy**
   - **ROC-AUC**
   - **F1-Score**
   - **Confusion Matrix**
 
-### **4. Hyperparameter Tuning**
-- Optimized the **Random Forest** model using **GridSearchCV** to improve accuracy and stability.
-- Validated model performance using cross-validation.
+### **4. Feature Importance & SHAP Analysis**
+- **Tree-based feature importance** identified key predictive variables.
+- **SHAP (Shapley Additive Explanations)** provided interpretability for model predictions.
+- **Key finding**: **Behavioral screening scores were the strongest predictors of ASD.**
 
-### **5. Feature Importance Analysis**
-- Evaluated feature contributions using **permutation importance** from tree-based models.
-- Identified key features influencing ASD detection.
+### **5. Confusion Matrix Insights**
+- **CatBoost model demonstrated the lowest false negative rate**, making it ideal for ASD screening.
+- **Minimal false positives ensured fewer unnecessary ASD evaluations**.
+- **Overall balanced precision-recall performance**, supporting clinical reliability.
 
-### **6. Deployment Preparation**
-- Saved the final Random Forest model using **joblib** for future deployment.
-- Demonstrated prediction functionality with sample inputs.
+### **6. Model Deployment Preparation**
+- **The final model (CatBoost) was saved using `joblib`** for efficient deployment.
+- **Validated predictions with sample test cases** to ensure correctness.
 
 ---
 
 ## **Results**
 
-### **Best Model: Random Forest (Refined)**
+### **Best Model: CatBoost**
 | Metric                 | Score  |
 |------------------------|--------|
-| **Cross-Validation Score** | 97.43% |
-| **Test Accuracy**      | 98.05% |
-| **ROC-AUC**            | 0.9986 |
-| **Precision (ASD)**    | 0.98   |
-| **Recall (ASD)**       | 0.98   |
-| **F1-Score (ASD)**     | 0.98   |
+| **Cross-Validation Accuracy** | 96.70% |
+| **Test Accuracy**      | 97.56% |
+| **ROC-AUC**            | 0.9982 |
+| **Precision (ASD)**    | 0.9619 |
+| **Recall (ASD)**       | 0.9902 |
+| **F1-Score (ASD)**     | 0.9758 |
 
 ### **Key Insights**
-- **Behavioral screening scores** (`A1_Score` to `A10_Score`) were the most significant predictors of ASD likelihood.
-- Demographic factors such as **age** and **ethnicity** contributed moderate predictive value.
-- The model demonstrated balanced precision and recall across both ASD and non-ASD classes.
+- **Behavioral screening scores** (`A1_Score` to `A10_Score`) were the most important predictors of ASD.
+- **CatBoost achieved the highest recall**, making it **preferable for early ASD detection**.
+- **False negatives were minimized**, reducing the risk of undiagnosed ASD cases.
 
 ---
 
 ## **Installation & Running the Project**
 
 ### **1. Clone the Repository**
-``` bash
+```
+bash
 git clone https://github.com/YourUsername/ASD-Detection-ML
 cd ASD-Detection-ML
 ```
 
 ### **2. Set Up a Virtual Environment**
-``` bash
+```
+bash
 python -m venv asd_env
-source asd_env/bin/activate  # For macOS/Linux
-asd_env\Scripts\activate     # For Windows
+source asd_env/bin/activate  # macOS/Linux
+asd_env\Scripts\activate     # Windows
 ```
 
 ### **3. Install Dependencies**
-``` bash
+```
+bash
 pip install -r requirements.txt
 ```
 
-### **4. Run the Project**
-``` bash
-# Open Jupyter Notebook and run the analysis step by step
-jupyter notebook ASD_Detection_Project.ipynb
+### **4. Running Predictions**
+Load the saved **CatBoost model** and test predictions:
+```
+python
+import joblib
+import pandas as pd
+
+# Load the trained model
+model = joblib.load("refined_catboost_model.pkl")
+
+# Example input (ensure this matches the feature order in training)
+sample_data = pd.DataFrame([[35, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1]], 
+                           columns=['Age', 'Sex', 'Ethnicity_Asian', ..., 'A10_Score'])
+
+# Make a prediction
+prediction = model.predict(sample_data)
+print(f"Predicted ASD Status: {prediction[0]} (0 = No ASD, 1 = ASD)")
 ```
 
 ---
 
 ## **Future Enhancements**
-Potential improvements to this project include:
-1. **Validating the model on external datasets** to ensure generalizability.
-2. **Exploring ensemble methods** to further boost model accuracy.
-3. **Deploying the model via an API** using **FastAPI** or **Flask** for real-time predictions.
-4. **Developing a user interface** for ease of use in clinical settings.
+Potential improvements include:
+1. **Validating the model on external datasets** to confirm generalizability.
+2. **Exploring ensemble learning techniques** for even higher predictive accuracy.
+3. **Deploying the model via a web-based API** (Flask/Django) for real-world use.
+4. **Developing a user-friendly UI** for seamless interaction.
 
 ---
 
 ## **Acknowledgments**
-- **Dataset Source**: Public ASD screening dataset (specific source to be cited if applicable).  
-- **Libraries Used**: **Scikit-learn, XGBoost, LightGBM, CatBoost, Pandas, Matplotlib, Seaborn, imbalanced-learn**  
+- **Dataset Source**: Public ASD screening dataset ([Kaggle Link](https://www.kaggle.com/datasets/umeradnaan/autism-screening/data)).  
+- **Libraries Used**: **Scikit-learn, XGBoost, LightGBM, CatBoost, Pandas, SHAP, Matplotlib, Seaborn, imbalanced-learn**  
 - **Tools**: Python, Jupyter Notebook, joblib  
 
 ---
@@ -149,6 +171,6 @@ Potential improvements to this project include:
 For any questions or collaboration opportunities, reach out at:
 - **Email**: devin.shrode@proton.me  
 - **LinkedIn**: [linkedin.com/in/DevinShrode](https://www.linkedin.com/in/DevinShrode)  
-- **GitHub**: [github.com/Devin-Shrode/Wine-Quality](https://github.com/Devin-Shrode/Autism-Spectrum)  
+- **GitHub**: [github.com/Devin-Shrode](https://github.com/Devin-Shrode)  
 
 ---
